@@ -5,8 +5,8 @@ public class Contact {
     private String phone_number;
 
     public Contact(){
-        name="";
-        phone_number="";
+        name="Name";
+        phone_number="Phone Number";
     }
 
 

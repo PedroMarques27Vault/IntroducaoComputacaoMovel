@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         ctwo = new Contact();
         cthree= new Contact();
 
-        cont3.setText(cthree.getName());
-        cont2.setText(ctwo.getName());
-        cont1.setText(cone.getName());
+
 
 
         View.OnLongClickListener spdial = new Button.OnLongClickListener(){
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.w("ON_ACTIVITY_RESULT", "Activity Result: " + data.getStringExtra("Contact_name"));
         if (requestCode == 1) {
 
             if (resultCode == RESULT_OK) {
@@ -133,11 +132,11 @@ public class MainActivity extends AppCompatActivity {
     public void SpeedDial(View id){
         EditText pn = (EditText) findViewById(R.id.editTextPhone);
         if ( id == cont1 ){
-            pn.setText(cone.getName());
+            pn.setText(cone.getNumber());
         }else if( id == cont2 ){
-            pn.setText(ctwo.getName());
+            pn.setText(ctwo.getNumber());
         }else if (id == cont3 ){
-            pn.setText(cthree.getName());
+            pn.setText(cthree.getNumber());
         }
     }
 
@@ -147,14 +146,37 @@ public class MainActivity extends AppCompatActivity {
         EditText pn = (EditText) findViewById(R.id.editTextPhone);
         String phoneNumber = pn.getText().toString();
 
-        it.putExtra("Pn",phoneNumber);
 
         if ( id == cont1 ){
             it.putExtra("Cont", "Cont1");
+            it.putExtra("Name",cone.getName());
+            if (!cone.getName().equals("Name")){
+                it.putExtra("Phone_Number", cone.getNumber());
+            }else if (phoneNumber.length()!=0){
+                it.putExtra("Phone_Number", phoneNumber);
+            }else{
+                it.putExtra("Phone_Number", cone.getNumber());
+            }
         }else if( id == cont2 ){
             it.putExtra("Cont", "Cont2");
+            it.putExtra("Name",ctwo.getName());
+            if (!ctwo.getName().equals("Name")){
+                it.putExtra("Phone_Number", ctwo.getNumber());
+            }else if (phoneNumber.length()!=0){
+                it.putExtra("Phone_Number", phoneNumber);
+            }else{
+                it.putExtra("Phone_Number", ctwo.getNumber());
+            }
         }else if (id == cont3 ){
             it.putExtra("Cont", "Cont3");
+            it.putExtra("Name",cthree.getName());
+            if (!ctwo.getName().equals("Name")){
+                it.putExtra("Phone_Number", cthree.getNumber());
+            }else if (phoneNumber.length()!=0){
+                it.putExtra("Phone_Number", phoneNumber);
+            }else{
+                it.putExtra("Phone_Number", cthree.getNumber());
+            }
         }
 
         startActivityForResult(it, 1);
