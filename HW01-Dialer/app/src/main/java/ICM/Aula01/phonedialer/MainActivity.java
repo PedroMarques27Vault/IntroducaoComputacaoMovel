@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private Button one,two,three,four,five,six,seven,eight,nine,zero;
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-    }//onActivityResult
+    }
 
     public void addNumber(View id){
         EditText pn = (EditText) findViewById(R.id.editTextPhone);
@@ -185,12 +187,13 @@ public class MainActivity extends AppCompatActivity {
     public void dial(View v){
         EditText pn = (EditText) findViewById(R.id.editTextPhone);
         String phoneNumber = pn.getText().toString();
-        if (phoneNumber.length()>0){
+        if (phoneNumber.length()==9){
             Uri uri = Uri.parse("tel:" + phoneNumber);
-            Intent intent = new Intent(Intent.ACTION_CALL, uri);
+            Intent intent = new Intent(Intent.ACTION_DIAL, uri);
 
             startActivity(intent);
-        }
+        }else{
+            }
 
     }
 
