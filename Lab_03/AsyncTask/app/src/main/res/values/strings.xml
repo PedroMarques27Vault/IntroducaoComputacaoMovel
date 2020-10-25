@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AsyncTask</string>
+    <string name="start">Start Task</string>
+    <string name="napping">Napping...</string>
+</resources>
