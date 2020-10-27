@@ -24,4 +24,9 @@
     <string name="location_text">"Latitude: %1$.4f \n Longitude: %2$.4f 
     \n Timestamp: %3$tr"</string>
     <string name="no_location">Your location isn\'t available</string>
+    <string name="service_not_available">Sorry! Service is Not Available</string>
+    <string name="invalid_lat_long_used">Invalid Latitude or Longitude Values</string>
+    <string name="no_addresses_found">Sorry! No addresses found</string>
+    <string name="address_text">"Address: %1$s \n Timestamp: %2$tr"</string>
+    <string name="loading">Loading...</string>
 </resources>

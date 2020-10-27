@@ -18,13 +18,13 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FetchAddressTask.onTaskCompleted{
 
     private static final int REQUEST_LOCATION_PERMISSION = 1 ;
     private static final String TAG = "getLocation";
     private FusedLocationProviderClient mFusedLocationClient;
     private TextView mLocationTextView;
-    private Location mLastLocation;
+    //private Location mLastLocation;           Uncomment to Show Coordinates Instead
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +39,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]
-                            {Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION_PERMISSION);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
         } else {
             Log.i(TAG, "Permission granted");
 
-
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {             //onSuccess callback
                 if (mFusedLocationClient.getLastLocation().isSuccessful())
                     Log.i(TAG, String.valueOf(mFusedLocationClient.getLastLocation().getResult()));
                 Log.i(TAG, String.valueOf(location));
                 if (location != null) {
-                    mLastLocation = location;
-                    mLocationTextView.setText(
-                            getString(R.string.location_text,
+                    //This Portion of Code obtains updates UI with Coordinates
+                    /*mLastLocation = location;
+                    mLocationTextView.setText(getString(R.string.location_text,
                                     mLastLocation.getLatitude(),
                                     mLastLocation.getLongitude(),
                                     mLastLocation.getTime()));
+                    */
+                    //This Portion Of Code Updates UI with Address Instead of Coordinates
+                    new FetchAddressTask(MainActivity.this,MainActivity.this).execute(location);
+                    mLocationTextView.setText(getString(R.string.address_text,
+                            getString(R.string.loading),
+                            System.currentTimeMillis()));
                 } else {
                     mLocationTextView.setText(R.string.no_location);
                 }
@@ -87,4 +88,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onTaskCompleted(String result) {
+        mLocationTextView.setText(getString(R.string.address_text, result, System.currentTimeMillis()));
+    }
 }
