@@ -32,6 +32,7 @@ public class FetchAddressTask extends AsyncTask<Location, Void, String> {
         String resultMessage = "";
 
 
+
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
