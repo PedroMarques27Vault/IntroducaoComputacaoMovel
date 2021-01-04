@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RoomDB</string>
+    <string name="add_word">Add User</string>
+    <string name="button_save">Save</string>
+    <string name="hint_word">Username</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_username">Username</string>
+    <string name="empty_not_saved">Empty Email - Not Saved</string>
+</resources>

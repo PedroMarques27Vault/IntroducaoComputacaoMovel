@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements FetchAddressTask.
 
     private static final int REQUEST_LOCATION_PERMISSION = 1 ;
     private static final String TAG = "getLocation";
-    private FusedLocationProviderClient mFusedLocationClient;
+
     private TextView mLocationTextView;
     //private Location mLastLocation;           Uncomment to Show Coordinates Instead
     private LocationCallback mLocationCallback;
